@@ -26,7 +26,7 @@ export default class Server {
     await this.connectDatabase();
 
     this.app.listen(port, () => {
-      console.log(`http://localhost:${port}`);
+      console.log(`Server is running to http://localhost:${port}`);
     });
   }
 }

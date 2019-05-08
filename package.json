@@ -6,15 +6,28 @@
   "author": "jeffchoi72 <ihello0720@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/app.ts"
+    "dev": "nodemon --exec ts-node ./src/app.ts",
+    "test": "jest --watch --coverage"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageFormats": [
+      "json",
+      "html"
+    ]
   },
   "devDependencies": {
     "@types/graphql": "^14.2.0",
     "@types/graphql-iso-date": "^3.3.1",
+    "@types/jest": "^24.0.12",
     "@types/lodash": "^4.14.124",
     "@types/mongoose": "^5.5.0",
     "@types/node": "^12.0.0",
+    "jest": "^24.8.0",
     "nodemon": "^1.19.0",
+    "superagent": "^5.0.5",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",

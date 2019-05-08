@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import * as Koa from 'koa';
 import { ApolloServer } from 'apollo-server-koa';
 import { graphqlSchema } from './graphql';
+import { connectMongoDB } from './database/connection';
 
 export default class Server {
   private app: Koa;
@@ -19,7 +20,7 @@ export default class Server {
   }
 
   private async connectDatabase() {
-    // connect database ...
+    await connectMongoDB();
   }
 
   public async runServer(port: string = '3000') {

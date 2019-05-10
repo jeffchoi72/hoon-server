@@ -10,7 +10,6 @@ export async function connectMongoDB() {
   }
 
   try {
-    console.log('DB_HOST: ', DB_HOST);
     await mongoose.connect(DB_HOST, { useNewUrlParser: true });
     console.log('Success mongodb connection');
   } catch (error) {

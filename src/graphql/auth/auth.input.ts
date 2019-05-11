@@ -16,4 +16,10 @@ export class LocalRegister {
 
   @Field()
   password: string;
+
+  @Field()
+  displayName: string;
+
+  @Field()
+  profileUrl: string;
 }

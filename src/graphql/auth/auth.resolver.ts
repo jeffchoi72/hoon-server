@@ -24,13 +24,31 @@ export default class AuthResolver {
     @Arg('input') localRegister: LocalRegister
   ) {
     // 요청 파라미터로 들어오는 데이터가 유효한지 검사한다.
-    const { email, password } = localRegister;
+    const { email, password, displayName, profileUrl } = localRegister;
 
     // 이메일로 계정이 조회되는지 확인한다.
     const userExists = await this.userService.isExistedUserEmail(email);
 
-    // 계정을 저장한다.
+    if (userExists) {
+      // throw apollo error
+      return;
+    }
+
+    const user = await this.userService.createUser({
+      email,
+      password,
+      displayName,
+      profileUrl,
+      authType: 'email'
+    });
+
+    if (!user) {
+      // throw apollo error
+      return;
+    }
+
     // 제대로 토큰을 발급했는지 확인한다.
+
     return {
       user: {
         _id: '1'

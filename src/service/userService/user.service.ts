@@ -24,4 +24,8 @@ export default class UserService {
   async createUser(userParams: User) {
     return UserModel.create(userParams);
   }
+
+  async getUserEmailAndPassword(email: string, password: string) {
+    return UserModel.findOne({ email, password });
+  }
 }

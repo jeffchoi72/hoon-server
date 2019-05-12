@@ -3,19 +3,39 @@ import { Auth } from './auth.type';
 import { Service } from 'typedi';
 import { UserService } from '../../service';
 import { LocalLogin, LocalRegister } from './auth.input';
+import { utilsLibrary } from '../../library';
+import { userError } from '../errors';
+import AuthService from '../../service/authService';
 
 @Resolver(of => Auth)
 @Service()
 export default class AuthResolver {
-  constructor(private userService: UserService) {}
+  constructor(
+    private authSerivce: AuthService,
+    private userService: UserService
+  ) {}
 
   @Mutation(() => Auth)
-  public requestLoccalEmailLogin(@Arg('auth') localLogin: LocalLogin) {
+  public async requestLocalEmailLogin(@Arg('input') localLogin: LocalLogin) {
+    const { email, password } = localLogin;
+
+    const encryptedPassword = utilsLibrary.encryptPassword(password);
+
+    const user = await this.userService.getUserEmailAndPassword(
+      email,
+      encryptedPassword
+    );
+
+    if (!user) {
+      userError.notFoundUser();
+      return;
+    }
+
+    const authToken = this.authSerivce.createAuthToken({ id: user.id });
+
     return {
-      user: {
-        _id: '1'
-      },
-      token: '1234'
+      authToken,
+      user
     };
   }
 
@@ -23,19 +43,30 @@ export default class AuthResolver {
   public async requestLocalEmailRegister(
     @Arg('input') localRegister: LocalRegister
   ) {
-    // 요청 파라미터로 들어오는 데이터가 유효한지 검사한다.
-    const { email, password } = localRegister;
+    const { email, password, displayName, profileUrl } = localRegister;
 
-    // 이메일로 계정이 조회되는지 확인한다.
     const userExists = await this.userService.isExistedUserEmail(email);
 
-    // 계정을 저장한다.
-    // 제대로 토큰을 발급했는지 확인한다.
+    if (userExists) {
+      userError.existsEmail();
+      return;
+    }
+
+    const encryptedPassword = utilsLibrary.encryptPassword(password);
+
+    const user = await this.userService.createUser({
+      email,
+      displayName,
+      profileUrl,
+      authType: 'email',
+      password: encryptedPassword
+    });
+
+    const authToken = this.authSerivce.createAuthToken({ id: user.id });
+
     return {
-      user: {
-        _id: '1'
-      },
-      token: '1234'
+      authToken,
+      user
     };
   }
 

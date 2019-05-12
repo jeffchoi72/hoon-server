@@ -2,6 +2,11 @@ import * as mongoose from 'mongoose';
 
 const { DB_HOST } = process.env;
 
+const DB_NAME =
+  process.env.NODE_ENV === 'test'
+    ? process.env.TEST_DB_NAME
+    : process.env.DB_NAME;
+
 export async function connectMongoDB() {
   console.log('Connecting mongodb');
 
@@ -10,7 +15,7 @@ export async function connectMongoDB() {
   }
 
   try {
-    await mongoose.connect(DB_HOST, { useNewUrlParser: true });
+    await mongoose.connect(`${DB_HOST}/${DB_NAME}`, { useNewUrlParser: true });
     console.log('Success mongodb connection');
   } catch (error) {
     console.error('Fail mongodb connection');

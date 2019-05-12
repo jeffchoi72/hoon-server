@@ -11,7 +11,7 @@ describe('Check UserService', () => {
   });
 
   test('To return value of isExistedUserEmail is false', async () => {
-    const userExists = await userService.isExistedUserEmail('test@gmail.com');
+    const userExists = await userService.isExistedUserEmail('test@hoon.kr');
 
     expect(userExists).toBe(false);
   });
@@ -26,5 +26,14 @@ describe('Check UserService', () => {
     });
 
     expect(user).not.toBeNull();
+  });
+
+  test('To return value of getUserEmailAndPassword is null', async () => {
+    const user = await userService.getUserEmailAndPassword(
+      'test@hoon.kr',
+      '1234'
+    );
+
+    expect(user).toBeNull();
   });
 });

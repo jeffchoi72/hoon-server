@@ -36,4 +36,10 @@ describe('Check UserService', () => {
 
     expect(user).toBeNull();
   });
+
+  test('To return value of getUserByEmail is User', async () => {
+    const user = await userService.getUserByEmail('tester01@test.com');
+
+    expect(user).not.toBeNull();
+  });
 });

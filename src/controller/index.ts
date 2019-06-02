@@ -1,3 +1,3 @@
-import * as authCtrl from './auth.ctrl';
+import AuthCtrl from './auth.ctrl';
 
-export { authCtrl };
+export { AuthCtrl };

@@ -3,7 +3,7 @@ import { UserModel, UserSchema } from '../../database/models';
 
 export interface User {
   email: string;
-  password: string;
+  password?: string;
   authType: string;
   displayName: string;
   profileUrl: string;
@@ -27,5 +27,9 @@ export default class UserService {
 
   async getUserEmailAndPassword(email: string, password: string) {
     return UserModel.findOne({ email, password });
+  }
+
+  async getUserByEmail(email: string) {
+    return UserModel.findOne({ email });
   }
 }

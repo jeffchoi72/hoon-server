@@ -4,7 +4,9 @@ export default class UserSchema extends Typegoose {
   @prop()
   email: string;
 
-  @prop()
+  @prop({
+    select: false
+  })
   password: string;
 
   @prop()

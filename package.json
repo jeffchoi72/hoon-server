@@ -41,6 +41,7 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
+    "@octokit/rest": "^16.27.3",
     "apollo": "^2.10.0",
     "apollo-server-koa": "^2.5.0",
     "axios": "^0.18.0",

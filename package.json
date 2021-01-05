@@ -44,7 +44,7 @@
     "@octokit/rest": "^16.27.3",
     "apollo": "^2.10.0",
     "apollo-server-koa": "^2.5.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.0.0",
     "graphql": "^14.3.0",
     "graphql-iso-date": "^3.6.1",
